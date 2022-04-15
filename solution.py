@@ -112,6 +112,24 @@ def ping(host, timeout=1):
     print("")
     values = []
     # Calculate vars values and return them
+    # if len(values) > 0:
+    #     packet_min = min(values) * 1000
+    #     packet_avg = sum(values) / len(values) * 1000
+    #     packet_max = max(values) * 1000
+    #     stdev_var = list(values) * 1000
+
+    #     vars = [str(round(packet_min, 2)), str(round(packet_avg, 2)), str(round(packet_max, 2)),str(round(stdev(statistics.stdev_var), 2))]
+
+    # else:
+    #     vars = ["0", "0.0", "0", "0.0"]
+
+    # Send ping requests to a server separated by approximately one second
+    for i in range(0,4):
+        delay = doOnePing(dest, timeout)
+        print(delay)
+        time.sleep(1)  # one second
+    
+    # moved val calculation code
     if len(values) > 0:
         packet_min = min(values) * 1000
         packet_avg = sum(values) / len(values) * 1000
@@ -122,12 +140,6 @@ def ping(host, timeout=1):
 
     else:
         vars = ["0", "0.0", "0", "0.0"]
-
-    # Send ping requests to a server separated by approximately one second
-    for i in range(0,4):
-        delay = doOnePing(dest, timeout)
-        print(delay)
-        time.sleep(1)  # one second
 
     return vars
 
