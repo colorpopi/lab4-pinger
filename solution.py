@@ -10,6 +10,8 @@ import statistics
 
 ICMP_ECHO_REQUEST = 8
 
+values = []
+
 
 def checksum(string):
     csum = 0
@@ -110,13 +112,12 @@ def ping(host, timeout=1):
     dest = gethostbyname(host)
     print("Pinging " + dest + " using Python:")
     print("")
-    values = []
     # Calculate vars values and return them
 
     # Send ping requests to a server separated by approximately one second
     for i in range(0,4):
         delay = doOnePing(dest, timeout)
-        # values.append(delay[0])
+        values.append(delay[0])
         print(delay)
         time.sleep(1)  # one second
 
