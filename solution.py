@@ -113,10 +113,10 @@ def ping(host, timeout=1):
     values = []
     # Calculate vars values and return them
     if len(values) > 0:
-        packet_min = min(values) * 100
-        packet_avg = sum(values) / len(values) * 100
-        packet_max = max(values) * 100
-        stdev_var = list(values) * 100
+        packet_min = min(values) * 1000
+        packet_avg = sum(values) / len(values) * 1000
+        packet_max = max(values) * 1000
+        stdev_var = list(values) * 1000
 
         vars = [str(round(packet_min, 2)), str(round(packet_avg, 2)), str(round(packet_max, 2)),str(round(stdev(statistics.stdev_var), 2))]
 
