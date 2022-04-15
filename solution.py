@@ -50,6 +50,13 @@ def receiveOnePing(mySocket, ID, timeout, destAddr):
         # Fill in start
 
         # Fetch the ICMP header from the IP packet
+        icmp_header = recPacket[20:30]
+        req_type, code, checksum, packet_id, sequence = struct.unpack("bbHHh", icmp_header)
+
+        if packet_id == ID:
+            bytes = struct.calcsize("d")
+            time_sent = struct.unpack("d", recPacket[28:28 + bytes])[0]
+            return timeReceived - time_sent
 
         # Fill in end
         timeLeft = timeLeft - howLongInSelect
@@ -76,19 +83,16 @@ def sendOnePing(mySocket, destAddr, ID):
     else:
         myChecksum = htons(myChecksum)
 
-
     header = struct.pack("bbHHh", ICMP_ECHO_REQUEST, 0, myChecksum, ID, 1)
     packet = header + data
 
     mySocket.sendto(packet, (destAddr, 1))  # AF_INET address must be tuple, not str
-
 
     # Both LISTS and TUPLES consist of a number of objects
     # which can be referenced by their position number within the object.
 
 def doOnePing(destAddr, timeout):
     icmp = getprotobyname("icmp")
-
 
     # SOCK_RAW is a powerful socket type. For more details:   http://sockraw.org/papers/sock_raw
     mySocket = socket(AF_INET, SOCK_RAW, icmp)
@@ -106,7 +110,7 @@ def ping(host, timeout=1):
     print("Pinging " + dest + " using Python:")
     print("")
     # Calculate vars values and return them
-    #  vars = [str(round(packet_min, 2)), str(round(packet_avg, 2)), str(round(packet_max, 2)),str(round(stdev(stdev_var), 2))]
+     vars = [str(round(packet_min, 2)), str(round(packet_avg, 2)), str(round(packet_max, 2)),str(round(stdev(stdev_var), 2))]
     # Send ping requests to a server separated by approximately one second
     for i in range(0,4):
         delay = doOnePing(dest, timeout)
