@@ -111,7 +111,7 @@ def ping(host, timeout=1):
     print("")
     values = []
     # Calculate vars values and return them
-    if values > 0:
+    if len(values) > 0:
         packet_min = min(values) * 1000
         packet_avg = sum(values) / len(values) * 1000
         packet_max = max(values) * 1000
@@ -121,7 +121,7 @@ def ping(host, timeout=1):
 
     else:
         vars = ["0", "0", "0", "0"]
-        
+
     # Send ping requests to a server separated by approximately one second
     for i in range(0,4):
         delay = doOnePing(dest, timeout)
