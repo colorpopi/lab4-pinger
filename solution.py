@@ -117,7 +117,7 @@ def ping(host, timeout=1):
         packet_max = max(values) * 1000
         stdev_var = list(values) * 1000
 
-        vars = [str(round(packet_min, 2)), str(round(packet_avg, 2)), str(round(packet_max, 2)),str(round(stdev(stdev_var), 2))]
+        vars = [str(round(packet_min, 5)), str(round(packet_avg, 5)), str(round(packet_max, 5)),str(round(stdev(stdev_var), 5))]
 
     else:
         vars = ["0", "0.0", "0", "0.0"]
