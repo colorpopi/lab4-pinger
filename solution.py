@@ -117,7 +117,7 @@ def ping(host, timeout=1):
     for i in range(0,4):
         delay = doOnePing(dest, timeout)
         # values.append(delay[0])
-        # print(delay)
+        print(delay)
         time.sleep(1)  # one second
 
     if len(values) > 0:
